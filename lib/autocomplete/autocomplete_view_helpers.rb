@@ -1,8 +1,8 @@
 module Autocomplete #:nodoc
   module ViewHelpers #:nodoc
     
-#In this method we are getting the hast name and finding the hash value and split all the values in seperate seperate variable and send through the url
-#This url will send the request to autocomplete/autocomplete_controller autocomplete method.    
+# In this method we are getting the hast name and finding the hash value and split all the values in seperate seperate variable and send through the url
+# This url will send the request to autocomplete/autocomplete_controller autocomplete method.    
     def autocompletion_field(hash,options={})
       get_hash =AUTO_COMPLETION_MAPPING[hash.to_sym]
       if get_hash
@@ -44,8 +44,8 @@ module Autocomplete #:nodoc
 
 # Here parse the json we need two methods def id ,def name,so,we are dynamically add the methods.
     def auto_completion_json(keyword,query,search_field,model_name,hash)
-      #@site=Ambient.current_site
-      #@classified=Classified.find(session[:classified_id]) if session[:classified_id]
+  
+      
       instance_variables_to_set_and_quey = AUTO_COMPLETION_MAPPING[hash.to_sym][:instance_variables_to_set_and_quey] || [] << ["@site","Site.find(session[:site_id])"]
       instance_variables_to_set_and_quey.each do |array|
         instance_variable_set(array[0],eval(array[1]))
@@ -62,7 +62,7 @@ module Autocomplete #:nodoc
         end
       }
       sql="#{query}.where(['UPPER(#{search_field}) like ?','%' + '#{keyword.upcase}' + '%'])"
-      #eval(query).where(["#{search_field} like ?", '%' + keyword + '%']).to_json(:only=>[:key,:value],:methods=>[:key,:value])
+    
       eval(sql).to_json(:only=>[:name,:id],:methods=>[:name,:id])
     end
     
