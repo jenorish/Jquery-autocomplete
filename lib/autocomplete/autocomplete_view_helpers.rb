@@ -44,7 +44,6 @@ module Autocomplete #:nodoc
 
 # Here parse the json we need two methods def id ,def name,so,we are dynamically add the methods.
     def auto_completion_json(keyword,query,search_field,model_name,hash)
-  
       
       instance_variables_to_set_and_quey = AUTO_COMPLETION_MAPPING[hash.to_sym][:instance_variables_to_set_and_quey] || [] << ["@site","Site.find(session[:site_id])"]
       instance_variables_to_set_and_quey.each do |array|
