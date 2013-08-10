@@ -1,0 +1,112 @@
+rails3-jquery-autocomplete
+
+Build Status
+
+An easy way to use jQuery's autocomplete with Rails 3.
+
+Supports both ActiveRecord.
+
+Works with Formtastic and SimpleForm
+
+ActiveRecord
+
+You can find a detailed example on how to use this gem with ActiveRecord here.
+
+Make sure your project is using jQuery-UI and the autocomplete widget before you continue.
+
+You can find more info about that here:
+
+    http://jquery.com/
+    http://jqueryui.com/demos/autocomplete/
+    http://loopj.com/jquery-tokeninput/
+    http://github.com/rails/jquery-ujs
+
+I'd encourage you to understand how to use those 3 amazing tools before attempting to use this gem.
+Installing
+
+Include the gem on your Gemfile
+
+gem 'autocomplete'
+
+Install it
+
+bundle install
+
+Rails 3.1.x
+
+Just add it to your layout javascript_include_tag "jquery.tokeninput.js"
+
+stylesheet_link_tag 'token-input','token-input-facebook','token-input-mac'
+
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+
+
+Usage :-
+
+If you want to use this autocompletion means simply call the "autocompletion_field" helper into your view files.
+
+This helper will automattically included in your view helpers
+
+Before calling :-
+
+you need to add below routes in routes.rb file.
+
+ match 'autocomplete' ,:to => 'autocomplete#autocomplete' , :as => :autocomplete
+
+Then you should create file in config/initializer/auto_complete.rb,
+
+In this you should create one constant call AUTO_COMPLETION_MAPPING then we need to create one hash with some name.
+
+Ex.(config/initializer/auto_complete.rb)
+
+AUTO_COMPLETION_MAPPING = {:article_author => {:class_name => 'Author',
+                                          :search_query => '@site.authors',
+                                          :name => 'article[author_ids]',
+                                          :display_name => 'firstname',
+                                          :search_field => 'firstname',
+                                          :value=> 'id'}
+                                          }
+
+
+ 
+How to call :-
+
+autocompletion_field(hash_name,options={}) :-
+
+ # Mandatory
+  
+  #  :Hash name   - This is the hash name which one you are defined in config/initializer/auto_complete.rb
+
+In this hash some of the keys are mandatory :-
+
+  #  :class_name      - Which model you wnt to search
+  #  :search_query    - which query you want to fire 
+  #  :name            - What is the name of the text field
+  #  :display_name    - In auto completion which field you wnat to show.
+  #  :search_field    - Which field you want to search
+  #  :value           - which value you need sent to back end
+
+ #options
+ 
+  #  :maximum_allowed   - How many entry we need to allow in autocompletion (default :- 45)
+     :allow_new         - If you allow to create new entry (default :-false)
+     
+#####         If allow new is true means :new_name is mandatory     #######
+     :new_name          - If we are creating new entry with different name.
+####          If allow new is false we no need to mention           ######     
+     
+       
+     :default_selection - With enter any thing which content you need to show (defalut :- 'Please enter value')
+     :null_message      - If result is empty with text you need to show (default :-'No results')
+     :sort              - Sorting between entries (default :- false)
+     :selected          - Default selection (default :- [])
+     :all_data          - This autocompletion Based on ajax request,if you no need ajax type means we can define own hash like {:id =>"key",:name=>"name"},So it won't sent url it will search from this hash only.
+     :instance_variables_to_set_and_quey - Some of instance we want to fire a query like @site.articles.by_category(@category),inthis case we need @category so we can give [["@category","Category.find(params[:category_id])"],["@site","Site.find(session[:site_id])"]].
+     
+About the Author
+
+Kingston.S
+Kreatio software Pvt ltd,
+Bangalore.
