@@ -108,5 +108,3 @@ In this hash some of the keys are mandatory :-
 About the Author
 
 Kingston.S
-Kreatio software Pvt ltd,
-Bangalore.
